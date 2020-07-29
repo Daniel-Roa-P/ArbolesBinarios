@@ -12,6 +12,8 @@ public class Arbol {
     private String cadena3="";
     private String aviso="";
     
+    static int preIndex;
+    
     public Nodo insertar(Nodo nodo, int valor){
         
         if(nodo == null){
@@ -179,6 +181,83 @@ public class Arbol {
         
     } 
     
+    public int Buscar(int arr[], int strt, int end, int value) { 
+		
+        int i; 
+	
+        for (i = strt; i <= end; i++) { 
+	
+            if (arr[i] == value) 
+	
+                return i; 
+		
+        } 
+	
+        return i; 
+	
+    } 
+    
+    public Nodo construirArbolPre(int in[], int pre[], int inicio, int fin){ 
+        
+        if (inicio > fin){
+        
+            return null; 
+
+        }
+         
+        Nodo tempNodo = new Nodo(pre[preIndex++]); 
+        
+        System.out.println(tempNodo.getValor());
+        
+        if (inicio == fin){ 
+        
+            return tempNodo; 
+
+        }
+
+        int indiceInOrden = Buscar(in, inicio, fin, tempNodo.getValor()); 
+
+        tempNodo.setIzquierdo( construirArbolPre(in, pre, inicio, indiceInOrden - 1));
+        tempNodo.setDerecho( construirArbolPre(in, pre, indiceInOrden + 1, fin)); 
+
+        
+        return tempNodo; 
+    }
+    
+    Nodo construir(int in[], int post[], int n) 
+    { 
+        Index pIndex = new Index(); 
+        pIndex.index = n - 1; 
+        return construirArbolPos(in, post, 0, n - 1, pIndex); 
+    
+    } 
+    
+    public Nodo construirArbolPos(int in[], int post[], int inicio, int fin, Index pIndex) { 
+        
+        if (inicio > fin){ 
+        
+            return null; 
+  
+        }
+        
+        Nodo tempNodo = new Nodo(post[pIndex.index]); 
+        (pIndex.index)--; 
+
+        if (inicio == fin){ 
+        
+            return tempNodo; 
+        
+        }
+        
+        int iIndex = Buscar(in, inicio, fin, tempNodo.getValor()); 
+  
+        tempNodo.setDerecho(construirArbolPos(in, post, iIndex + 1, fin, pIndex)); 
+        tempNodo.setIzquierdo(construirArbolPos(in, post, inicio, iIndex - 1, pIndex));
+  
+        return tempNodo; 
+    
+    } 
+    
     public Nodo getRaiz() {
         return raiz;
     }
@@ -236,3 +315,7 @@ public class Arbol {
     }
     
 }
+
+class Index { 
+    int index; 
+} 

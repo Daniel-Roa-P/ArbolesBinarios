@@ -9,11 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -23,6 +25,7 @@ public class ArbolBinario extends JFrame implements ActionListener{
     public JButton botonCrear  = new JButton("Crear arbol");
     public JButton botonInsertar = new JButton("Insertar en el arbol");
     public JButton botonRetirar  = new JButton("Retirar del arbol");
+    public JButton botonReconstruir  = new JButton("Reconstruir arbol");
     
     public JLabel label  = new JLabel("Trabajo hecho por:");
     public JLabel label2 = new JLabel("Nombre: Daniel Alejandro Roa Palacios");
@@ -35,13 +38,23 @@ public class ArbolBinario extends JFrame implements ActionListener{
     public JLabel label9 = new JLabel("Recorrido por niveles: ");
     public JLabel labelAviso = new JLabel("");
     
+    public JLabel texto1 = new JLabel("Inorden: ");
+    public JLabel texto2 = new JLabel("Recorrido: ");
     
-    public JTextField tfIngreso = new JTextField("10,20,30,40,50,60,70,80,90,100");
-    public JTextField tfRetiro = new JTextField("20,50");
+    ButtonGroup  bg = new ButtonGroup();
+    
+    JRadioButton rb1 = new JRadioButton("Preorden");
+    JRadioButton rb2 = new JRadioButton("PosOrden");
+    
+    public JTextField tfIngreso = new JTextField("5,7,36,4,1,8,69,41,75,3,9");
+    public JTextField tfRetiro = new JTextField("5,7");
     public JTextField preOrden = new JTextField();
     public JTextField inOrden = new JTextField();
     public JTextField posOrden = new JTextField();
     public JTextField niveles = new JTextField();
+    
+    public JTextField entradaIn = new JTextField();
+    public JTextField entradaRecorrido = new JTextField();
     
     private Arbol tree = null; 
     private List <Nodo> listaArbol = new ArrayList();
@@ -66,6 +79,12 @@ public class ArbolBinario extends JFrame implements ActionListener{
         c.setLayout(null);
         this.getContentPane().setBackground(Color.LIGHT_GRAY);
         
+        bg.add(rb1);
+        bg.add(rb2);
+        
+        c.add(rb1);
+        c.add(rb2);
+        
         c.add(label);
         c.add(label2);
         c.add(label3);
@@ -83,16 +102,27 @@ public class ArbolBinario extends JFrame implements ActionListener{
         c.add(inOrden);
         c.add(posOrden);
         c.add(niveles);
+        c.add(entradaIn);
+        c.add(entradaRecorrido);
+        c.add(texto1);
+        c.add(texto2);
         
         c.add(botonInsertar);
         c.add(botonRetirar);
         c.add(botonCrear);
+        c.add(botonReconstruir);
         
         c.add(scrollPane1);
+        
+        rb1.setBounds(1125, 150, 100, 20);
+        rb1.setBackground(Color.LIGHT_GRAY);
+        rb2.setBounds(1125, 175, 100, 20);
+        rb2.setBackground(Color.LIGHT_GRAY);
         
         botonInsertar.addActionListener(this);
         botonRetirar.addActionListener(this);
         botonCrear.addActionListener(this);
+        botonReconstruir.addActionListener(this);
         
         label.setBounds(20, 25, 200, 20);
         label2.setBounds(20, 50, 400, 20);
@@ -104,6 +134,8 @@ public class ArbolBinario extends JFrame implements ActionListener{
         label8.setBounds(300, 100, 200, 20);
         label9.setBounds(300, 25, 200,20);
         labelAviso.setBounds(900,100,370,20);
+        texto1.setBounds(830, 150, 200, 20);
+        texto2.setBounds(830, 175, 200, 20);
         
         tfIngreso.setBounds(900, 50, 210, 20);
         tfRetiro.setBounds(900, 75, 210, 20);
@@ -111,6 +143,8 @@ public class ArbolBinario extends JFrame implements ActionListener{
         inOrden.setBounds(450, 75, 350, 20);
         posOrden.setBounds(450, 100, 350, 20);
         niveles.setBounds(450, 25, 350, 20);
+        entradaIn.setBounds(900, 150, 210, 20);
+        entradaRecorrido.setBounds(900, 175, 210, 20);
         
         botonInsertar.setBounds(1125, 50, 145, 20);
         botonInsertar.setBackground(Color.green);
@@ -118,6 +152,8 @@ public class ArbolBinario extends JFrame implements ActionListener{
         botonRetirar.setBackground(Color.red);
         botonCrear.setBounds(1125, 25, 145, 20);
         botonCrear.setBackground(Color.blue);
+        botonReconstruir.setBounds(1125, 125, 145, 20);
+        botonReconstruir.setBackground(Color.ORANGE);
         
         scrollPane.setBounds(0, 200, 2500, 2500);
         scrollPane.setPreferredSize(new Dimension(2500, 2500));  
@@ -199,15 +235,15 @@ public class ArbolBinario extends JFrame implements ActionListener{
             
             if(j != 0){
                 
-                if(listaArbol.get(i) != null){
-                    System.out.print(listaArbol.get(i).getValor() + " Ubicado en: " + coorX + " + " + (2000/(Math.pow(2, (exponente) ))));
-                }
+//                if(listaArbol.get(i) != null){
+//                    System.out.print(listaArbol.get(i).getValor() + " Ubicado en: " + coorX + " + " + (2000/(Math.pow(2, (exponente) ))));
+//                }
                 coorX = ( coorX + (2000/(Math.pow(2, (exponente) ) )) );
                 
-                if(listaArbol.get(i) != null){
-                    System.out.print(" = " + coorX);
-                    System.out.println(" ");
-                }
+//                if(listaArbol.get(i) != null){
+//                    System.out.print(" = " + coorX);
+//                    System.out.println(" ");
+//                }
             }
             
             if(listaArbol.get(i) != null){
@@ -388,12 +424,57 @@ public class ArbolBinario extends JFrame implements ActionListener{
                 
             }
             
+        } else if(e.getSource() == botonReconstruir && rb1.isSelected()){
+        
+            tree = new Arbol();
+            
+            String [] cadenaInorden = entradaIn.getText().split(", ");
+            String [] cadenaPreorden = entradaRecorrido.getText().split(", ");
+            
+            int [] lista1 = new int [cadenaInorden.length];
+            int [] lista2 = new int [cadenaPreorden.length];
+            
+            for(int i = 0; i < cadenaPreorden.length; i++){
+            
+                lista1[i] = Integer.parseInt(cadenaInorden[i]);
+                lista2[i] = Integer.parseInt(cadenaPreorden[i]);
+                
+            }
+            
+            tree.setRaiz(tree.construirArbolPre(lista1, lista2, 0, cadenaInorden.length - 1));
+            
+            dibujar();
+ 
+        } else if(e.getSource() == botonReconstruir && rb2.isSelected()){
+        
+            tree = new Arbol();
+            
+            String [] cadenaInorden = entradaIn.getText().split(", ");
+            String [] cadenaPosOrden = entradaRecorrido.getText().split(", ");
+            
+            int [] lista1 = new int [cadenaInorden.length];
+            int [] lista2 = new int [cadenaPosOrden.length];
+            
+            for(int i = 0; i < cadenaPosOrden.length; i++){
+            
+                lista1[i] = Integer.parseInt(cadenaInorden[i]);
+                lista2[i] = Integer.parseInt(cadenaPosOrden[i]);
+                
+            }
+            
+            int largo = cadenaInorden.length;
+            
+            tree.setRaiz(tree.construir(lista1, lista2, largo));
+            
+            dibujar();
+            
         } else if (tree == null){
                 
             labelAviso.setText("El arbol no existe, por favor creelo"); 
                     
         } 
-        
-    }
+
+    } 
     
 }
+// in 1, 3, 4, 5, 7, 8, 9, 36, 41, 69, 75
